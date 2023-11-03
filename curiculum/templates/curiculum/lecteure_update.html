@@ -1,0 +1,12 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" name="" value="submit">
+</form>
+<br>
+    <a href="{% url 'curiculum:lecture_detail' course=lectures.Course.slug topic=lectures.topic.slug slug=lectures.slug %}" class="btn btn-danger">Cancel</a>
+{% endblock %}

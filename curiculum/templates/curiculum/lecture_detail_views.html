@@ -1,0 +1,57 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<center>
+
+    <p>Created on {{lectures.created_at}} by {{lectures.created_by}}</p><br>
+
+<h3>{{lectures.name}}</h3>
+
+<div class="justify-content-center mb-3">
+    <div id="player-overlay">
+          <video width=500 height=300 controls>
+              <source src="{{lectures.video.url}}"  type="video/mp4">
+            </video>
+    </div>
+</div>
+
+<!-- download notes -->
+<div class="col-md-4 mb-4 mt-4">
+    <div class="card box-shadow-hover">
+      <div class="card-body">
+        <h5 class="card-title">Download Notes</h5>
+        {% if lectures.notes %}
+        <p class="card-text">Download notes from the lecture</p>
+        <a href="{{lectures.notes.url}}" download>
+        <button type="button" class="button-les"><span>Get Files</span></button>
+        </a>
+        {% else %}
+        <p class="card-text">Notes not available</p>
+        {%endif%}
+
+      </div>
+    </div>
+  </div>
+
+<!-- download video -->
+<div class="col-md-4 mb-4 mt-4">
+    <div class="card box-shadow-hover">
+      <div class="card-body">
+        <h5 class="card-title">Download Video</h5>
+        <p class="card-text">Download Video of the lecture</p>
+        <a href="{{lectures.video.url}}" download>
+        <button type="button" class="button-les"><span>Get Files</span></button>
+        </a>
+      </div>
+    </div>
+  </div>
+{% if user.userprofileinfo.user_type == 'instructor' or user.is_superuser %}
+<span>
+<a href="{% url 'curiculum:lecture_update' course=lectures.Course.slug topic=lectures.topic.slug slug=lectures.slug %}" class="btn btn-warning btn-lg mr-4">Update lecture</a>
+<a href="{% url 'curiculum:lecture_delete' course=lectures.Course.slug topic=lectures.topic.slug slug=lectures.slug %}" class="btn btn-danger btn-lg mr-4">Delete lecture</a>
+</span>
+
+</center>
+{% endif %}
+{% endblock %}<hr class="my-5" style="color:#ff5722;">

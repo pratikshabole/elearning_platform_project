@@ -1,0 +1,11 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+{% for topic in courses.topics.all %}
+    <a href="{% url 'curiculum:lecture_list' slug=topic.slug course=courses.slug %}">{{topic.name}}</a><br>
+    
+    {{topic.description|truncatechars:75}}
+{% endfor %}
+
+{% endblock %}

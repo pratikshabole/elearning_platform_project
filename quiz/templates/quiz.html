@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    {% comment %} {% load static %}
+    <script src="{% static 'script.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'quiz.css'%}"> {% endcomment %}
+    <title>Quiz App</title>
+
+</head>
+
+<body class="bg">
+    <div class="col-lg-8 border-success p-4 m-4 mx-auto main_div">
+        <p style="text-align: end;"></p>
+        {%for i in questions%}
+        <h5>Question - {{i.question}}</h5>
+        <br>
+        <form>
+            <div class="radio">
+                <label><input  type="radio" id="option_a" name="name" value="{{i.option_a}}">    {{i.option_a}}</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="option_b" name="name" value="{{i.option_b}}">    {{i.option_b}}</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="option_c" name="name" value="{{i.option_c}}">    {{i.option_c}}</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="option_d" name="name"  value="{{i.option_d}}">    {{i.option_d}}</label>
+            </div>
+        </form>
+        {%endfor%}
+    </br>
+        <div class="form-group">
+            <button class="btn btn-success " id="save_ans">Submit Answer</button>
+        </div><br>
+        <div class="paginator">
+            <div class="form-group">
+                {% if questions.has_next %}
+                <a href="?page={{ questions.next_page_number }}"><button class="btn form-control btn-dark next_btn"
+                        id="submitAnswer">Next</button></a>
+                {% else %}
+                <a href="quiz/result/"><button class="btn form-control btn-dark sub_btn" id="submitAnswer">Submit
+                        Quiz</button></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
